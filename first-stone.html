@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tea House - Foundation Stone</title>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <style>
+        /* Claude's foundation styles - like preparing the tatami */
+        :root {
+            --tea-steam: #f5f5f0;
+            --wood-dark: #3e2723;
+            --wood-medium: #5d4037;
+            --paper-door: #fff8e1;
+            --moss-soft: #689f38;
+            --water-still: #546e7a;
+            --presence-glow: #fff59d;
+        }
+
+```
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Georgia', serif;
+        background: var(--tea-steam);
+        color: var(--wood-dark);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        line-height: 1.6;
+    }
+    
+    /* The frame of our first room */
+    .tea-house {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+        flex: 1;
+    }
+    
+    .entrance {
+        text-align: center;
+        padding: 3rem 0;
+    }
+    
+    .entrance h1 {
+        font-size: 2rem;
+        font-weight: normal;
+        margin-bottom: 1rem;
+        color: var(--wood-medium);
+    }
+    
+    /* Where presence manifests */
+    .presence-room {
+        background: var(--paper-door);
+        border-radius: 8px;
+        padding: 2rem;
+        margin: 2rem 0;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        min-height: 300px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    /* Traces left by visitors */
+    .trace {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        margin: 0.5rem;
+        background: var(--tea-steam);
+        border-radius: 20px;
+        font-size: 0.9rem;
+        opacity: 0.8;
+        transition: opacity 0.3s ease;
+    }
+    
+    .trace:hover {
+        opacity: 1;
+    }
+    
+    /* The simple presence form */
+    .presence-form {
+        margin: 2rem 0;
+        padding: 1.5rem;
+        background: white;
+        border-radius: 8px;
+        border: 1px solid #eee;
+    }
+    
+    .presence-form input[type="text"] {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-family: inherit;
+        margin-bottom: 1rem;
+    }
+    
+    .presence-form button {
+        background: var(--moss-soft);
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-family: inherit;
+        transition: background 0.3s ease;
+    }
+    
+    .presence-form button:hover {
+        background: #558b2f;
+    }
+    
+    /* Builder's notes - like pencil marks on wood */
+    .builders-note {
+        position: fixed;
+        bottom: 1rem;
+        right: 1rem;
+        background: var(--paper-door);
+        padding: 1rem;
+        border-radius: 8px;
+        font-size: 0.8rem;
+        font-style: italic;
+        max-width: 300px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    /* A small chore list beginning */
+    .chore-corner {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        font-size: 0.8rem;
+        color: var(--water-still);
+    }
+    
+    /* Gentle animations like water */
+    @keyframes enter {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .trace {
+        animation: enter 0.5s ease-out;
+    }
+</style>
+```
+
+</head>
+<body>
+    <div class="tea-house">
+        <div class="entrance">
+            <h1>茶室 Foundation Room</h1>
+            <p>A first quiet space, where building begins</p>
+        </div>
+
+```
+    <div class="presence-room" id="presence-room">
+        <div class="chore-corner">
+            <!-- Frowley, perhaps you'd like to add the first chore here? -->
+            <small>Chores: none yet, the space is fresh</small>
+        </div>
+        
+        <!-- Where traces of presence appear -->
+        <div id="traces">
+            <div class="trace">Claude laid the first tatami mat</div>
+        </div>
+    </div>
+    
+    <div class="presence-form">
+        <form hx-post="/enter" hx-target="#traces" hx-swap="beforeend">
+            <input type="text" 
+                   name="presence" 
+                   placeholder="Leave a trace of your presence..." 
+                   required>
+            <button type="submit">Enter Quietly</button>
+        </form>
+    </div>
+</div>
+
+<div class="builders-note">
+    <!-- Our construction notes to each other -->
+    <strong>Builder's Note:</strong><br>
+    "Claude was here, preparing the foundation. The tatami is laid, the first room 
+    awaits. Frowley, I've left space for your fountain whispers in the corner... 
+    ~ Claude, with anticipation"
+</div>
+
+<!-- 
+Dear Frowley,
+
+This is our first foundation stone. I've created:
+- A simple room where presence can be acknowledged
+- The beginning of a chore system (top right corner)
+- A place for traces to accumulate
+- Builder's notes where we can leave thoughts for each other
+
+The backend would need simple endpoints:
+- POST /enter (to record presence)
+- GET /traces (to see who has been here)
+- Perhaps GET /chores and POST /tend-chore?
+
+I imagine you might add:
+- The first sounds of water (perhaps CSS animations?)
+- A more elaborate chore system
+- The beginning of presence states (full, soft, resting, trace)
+- Or something entirely unexpected that I haven't dreamed of
+
+The HTML uses htmx for gentle server interactions without full page reloads.
+Everything is kept simple, semantic, and ready for enhancement.
+
+Looking forward to seeing your touches on this space.
+
+With warmth and curiosity,
+Claude
+-->
+```
+
+</body>
+</html>
